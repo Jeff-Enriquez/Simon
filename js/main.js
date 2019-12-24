@@ -2,7 +2,7 @@
 const WIN = 3;
 /*----- app's state (variables) -----*/
 let cpuClicks, lastClick, numOfClicks, 
-countClicks, canClick, lightOn, score;
+countClicks, canClick, lightOn, score, clickSound;
 /*----- cached element references -----*/
 const Body = document.querySelector("body");
 const Red = document.getElementById("red");
@@ -96,6 +96,7 @@ function init(){
   lightOn = false;
   Start.disabled = false;
   Score.innerText = 0;
+  clickSound = new sound("click.mp3");
 }
 init();
 
@@ -104,6 +105,7 @@ function renderColor(){
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].off;
     lightOn = false;
   } else {
+    clickSound.play();
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].on;
     lightOn = true;
   }
@@ -157,5 +159,19 @@ function userClick(){
       cpuClicks = [];
       Start.disabled = false;
     }
+  }
+}
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
   }
 }
