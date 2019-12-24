@@ -1,69 +1,67 @@
 /*----- constants -----*/
 
 /*----- app's state (variables) -----*/
-let cpuClicks, userClicks, counter, canClick, lightOn;
+let cpuClicks, userClicks, lastClick, counter, canClick, lightOn;
 /*----- cached element references -----*/
-const RED = document.querySelector(".red");
-const GREEN = document.querySelector(".green");
-const YELLOW = document.querySelector(".yellow");
-const BLUE = document.querySelector(".blue");
+const RED = document.getElementById("red");
+const GREEN = document.getElementById("green");
+const YELLOW = document.getElementById("yellow");
+const BLUE = document.getElementById("blue");
 const START = document.querySelector("button");
-const COLORS = [RED, GREEN, YELLOW, BLUE];
+const ALLCOLORS = [RED, GREEN, YELLOW, BLUE];
+const COLORSWITCH = {
+  red: {
+    on: "darkred",
+    off: "red",
+  },
+  green: {
+    on: "darkgreen",
+    off: "green",
+  }, 
+  yellow: {
+    on: "peachpuff",
+    off: "yellow",
+  }, 
+  blue: {
+    on: "darkblue",
+    off: "blue",
+  },
+};
 /*----- event listeners -----*/
 RED.addEventListener("click", function(){
-  if (canClick) {
-    userClicks.push(RED);
-  } else {
-    RED.style.backgroundColor = "darkred";
-    setTimeout(function(){
-      RED.style.backgroundColor = "red";
-    }, 1000);
+  if(canClick){
+
   }
 });
 GREEN.addEventListener("click", function(){
-  if (canClick) {
-    userClicks.push(GREEN);
-  } else {
-    GREEN.style.backgroundColor = "darkgreen";
-    setTimeout(function(){
-      GREEN.style.backgroundColor = "green";
-    }, 1000);
+  if(canClick){
+
   }
 });
 YELLOW.addEventListener("click", function(){
-  if (canClick) {
-    userClicks.push(YELLOW);
-  } else {
-    YELLOW.style.backgroundColor = "peachpuff";
-    setTimeout(function(){
-      YELLOW.style.backgroundColor = "yellow";
-    }, 1000);
+  if(canClick){
+
   }
 });
 BLUE.addEventListener("click", function(){
-  if (canClick) {
-    userClicks.push(BLUE);
-  } else if (lightOn) {
-    BLUE.style.backgroundColor = "blue";
-    lightOn = false;
-    cpuClicks
-  } else {
-    BLUE.style.backgroundColor = "darkblue";
-    lightOn = true;
+  if(canClick){
+
   }
 });
 START.addEventListener("click", function(){
-  canClick = false;
-  lightOn = false;
   let intr = setInterval(function(){
-      let randomColor = COLORS[Math.floor(Math.random()*4)];
-        cpuClicks.push(randomColor);
-      randomColor.click();
+    if(!lightOn) {
+      lastClick = ALLCOLORS[Math.floor(Math.random()*4)];
+      cpuClicks.push(lastClick);
+      renderColor();
+    } else {
+      renderColor();
       if(cpuClicks.length >= counter){
         canClick = true;
         clearInterval(intr);
       }
-    }, 1000);
+    }
+  }, 500);
 });
 /*----- functions -----*/
 function init(){
@@ -75,6 +73,12 @@ function init(){
 }
 init();
 
-function renderLight(){
-  
+function renderColor(){
+  if(lightOn){
+    lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].off;
+    lightOn = false;
+  } else {
+    lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].on;
+    lightOn = true;
+  }
 }
