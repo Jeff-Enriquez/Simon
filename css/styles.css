@@ -27,19 +27,19 @@ div > div {
   margin-right: 30%;
 }
 #red {
-  background-color: red;
+  background-color: Red;
   border-radius: 15px 50px 30px;
 }
 #green {
-  background-color: green;
+  background-color: Green;
   border-radius: 50px 15px 50px 30px;
 }
 #yellow {
-  background-color: yellow;
+  background-color: Yellow;
   border-radius: 50px 30px 50px 15px;
 }
 #blue {
-  background-color: blue;
+  background-color: Blue;
   border-radius: 30px 50px 15px;
 }
 p {
@@ -47,11 +47,27 @@ p {
   margin: 0 auto;
   margin-top: .5em;
 }
-button {
+Button {
   border: .1em solid black;
   color: black;
   font-size: 1.5em;
   background-color: transparent;
   width: 5.5em;
   margin: 0 auto;
+}
+Button:hover {
+  border-color: gray;
+  color: gray;
+}
+#modal{
+  width: 75%;
+  height: 500px;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: -500px;
+  text-align: center;
+}
+#modal > p {
+  font-size: 3em;
+  margin-bottom: 20px;
 }

@@ -3,56 +3,60 @@
 /*----- app's state (variables) -----*/
 let cpuClicks, userClicks, lastClick, numOfClicks, countClicks, canClick, lightOn;
 /*----- cached element references -----*/
-const RED = document.getElementById("red");
-const GREEN = document.getElementById("green");
-const YELLOW = document.getElementById("yellow");
-const BLUE = document.getElementById("blue");
-const START = document.querySelector("button");
-const ALLCOLORS = [RED, GREEN, YELLOW, BLUE];
+const Body = document.querySelector("body");
+const Red = document.getElementById("red");
+const Green = document.getElementById("green");
+const Yellow = document.getElementById("yellow");
+const Blue = document.getElementById("blue");
+const Start = document.querySelector("button");
+const Modal = document.createElement("div");
+const Button = document.createElement("button");
+const P = document.createElement("p");
+const ALLCOLORS = [Red, Green, Yellow, Blue];
 const COLORSWITCH = {
   red: {
-    on: "darkred",
-    off: "red",
+    on: "darkRed",
+    off: "Red",
   },
   green: {
-    on: "darkgreen",
-    off: "green",
+    on: "darkGreen",
+    off: "Green",
   }, 
   yellow: {
     on: "peachpuff",
-    off: "yellow",
+    off: "Yellow",
   }, 
   blue: {
-    on: "darkblue",
-    off: "blue",
+    on: "darkBlue",
+    off: "Blue",
   },
 };
 /*----- event listeners -----*/
-RED.addEventListener("click", function(){
+Red.addEventListener("click", function(){
   if(canClick){
-    lastClick = RED;
+    lastClick = Red;
     userClick();
   }
 });
-GREEN.addEventListener("click", function(){
+Green.addEventListener("click", function(){
   if(canClick){
-    lastClick = GREEN;
+    lastClick = Green;
     userClick();
   }
 });
-YELLOW.addEventListener("click", function(){
+Yellow.addEventListener("click", function(){
   if(canClick){
-    lastClick = YELLOW;
+    lastClick = Yellow;
     userClick();
   }
 });
-BLUE.addEventListener("click", function(){
+Blue.addEventListener("click", function(){
   if(canClick){
-    lastClick = BLUE;
+    lastClick = Blue;
     userClick();
   }
 });
-START.addEventListener("click", function(){
+Start.addEventListener("click", function(){
   let intr = setInterval(function(){
     if(!lightOn) {
       lastClick = ALLCOLORS[Math.floor(Math.random()*4)];
@@ -66,6 +70,10 @@ START.addEventListener("click", function(){
       }
     }
   }, 500);
+});
+Button.addEventListener("click", function(){
+  init();
+  Body.removeChild(Modal);
 });
 /*----- functions -----*/
 function init(){
@@ -87,7 +95,14 @@ function renderColor(){
     lightOn = true;
   }
 }
-
+function renderLose(){
+  Modal.id = "modal";
+  Body.appendChild(Modal);
+  P.textContent = "YOU LOSE";
+  Button.innerText = "Try Again";
+  Modal.appendChild(P);
+  Modal.appendChild(Button);
+}
 function userClick(){
   let i = 0;
   let intr = setInterval(function(){
@@ -100,8 +115,7 @@ function userClick(){
   if(cpuClicks[countClicks] == lastClick){
     countClicks++;
   } else {
-    console.log("You lose");
-    init();
+    renderLose();
   }
   if(countClicks == cpuClicks.length){
     canClick = false;
