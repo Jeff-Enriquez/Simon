@@ -1,7 +1,7 @@
 /*----- constants -----*/
 
 /*----- app's state (variables) -----*/
-let cpuClicks, userClicks, lastClick, counter, canClick, lightOn;
+let cpuClicks, userClicks, lastClick, numOfClicks, countClicks, canClick, lightOn;
 /*----- cached element references -----*/
 const RED = document.getElementById("red");
 const GREEN = document.getElementById("green");
@@ -30,22 +30,26 @@ const COLORSWITCH = {
 /*----- event listeners -----*/
 RED.addEventListener("click", function(){
   if(canClick){
-
+    lastClick = RED;
+    userClick();
   }
 });
 GREEN.addEventListener("click", function(){
   if(canClick){
-
+    lastClick = GREEN;
+    userClick();
   }
 });
 YELLOW.addEventListener("click", function(){
   if(canClick){
-
+    lastClick = YELLOW;
+    userClick();
   }
 });
 BLUE.addEventListener("click", function(){
   if(canClick){
-
+    lastClick = BLUE;
+    userClick();
   }
 });
 START.addEventListener("click", function(){
@@ -56,7 +60,7 @@ START.addEventListener("click", function(){
       renderColor();
     } else {
       renderColor();
-      if(cpuClicks.length >= counter){
+      if(cpuClicks.length >= numOfClicks){
         canClick = true;
         clearInterval(intr);
       }
@@ -67,7 +71,8 @@ START.addEventListener("click", function(){
 function init(){
   userClicks = [];
   cpuClicks = [];
-  counter = 5;
+  numOfClicks = 5;
+  countClicks = 0;
   canClick = false;
   lightOn = false;
 }
@@ -80,5 +85,27 @@ function renderColor(){
   } else {
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].on;
     lightOn = true;
+  }
+}
+
+function userClick(){
+  let i = 0;
+  let intr = setInterval(function(){
+    renderColor();
+    if(i == 1){
+      clearInterval(intr);
+    }
+    i++;
+  }, 500);
+  if(cpuClicks[countClicks] == lastClick){
+    countClicks++;
+  } else {
+    console.log("You lose");
+    init();
+  }
+  if(countClicks == cpuClicks.length){
+    canClick = false;
+    countClicks = 0;
+    cpuClicks = [];
   }
 }
