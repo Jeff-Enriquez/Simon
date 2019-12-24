@@ -1,0 +1,53 @@
+body{
+  padding: 0.5%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 8fr 1fr 1fr;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  font-size: 8em;
+  margin: 0;
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+div > div {
+  width: 60%;
+  height: 60%;
+  margin: auto;
+}
+.left {
+  margin-left: 30%;
+}
+.right {
+  margin-right: 30%;
+}
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+.yellow {
+  background-color: yellow;
+}
+.blue {
+  background-color: blue;
+}
+p {
+  font-size: 2em;
+  margin: 0 auto;
+  margin-top: .5em;
+}
+button {
+  border: .1em solid black;
+  color: black;
+  font-size: 1.5em;
+  background-color: transparent;
+  width: 5.5em;
+  margin: 0 auto;
+}
