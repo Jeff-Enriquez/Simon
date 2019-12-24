@@ -1,8 +1,9 @@
 /*----- constants -----*/
 const WIN = 3;
+const player = new Audio();
 /*----- app's state (variables) -----*/
 let cpuClicks, lastClick, numOfClicks, 
-countClicks, canClick, lightOn, score, clickSound;
+countClicks, canClick, lightOn, score;
 /*----- cached element references -----*/
 const Body = document.querySelector("body");
 const Red = document.getElementById("red");
@@ -96,7 +97,6 @@ function init(){
   lightOn = false;
   Start.disabled = false;
   Score.innerText = 0;
-  clickSound = new sound("click.mp3");
 }
 init();
 
@@ -105,7 +105,7 @@ function renderColor(){
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].off;
     lightOn = false;
   } else {
-    clickSound.play();
+    playerSound("click.mp3");
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].on;
     lightOn = true;
   }
@@ -161,17 +161,7 @@ function userClick(){
     }
   }
 }
-function sound(src) {
-  this.sound = document.createElement("audio");
-  this.sound.src = src;
-  this.sound.setAttribute("preload", "auto");
-  this.sound.setAttribute("controls", "none");
-  this.sound.style.display = "none";
-  document.body.appendChild(this.sound);
-  this.play = function(){
-    this.sound.play();
-  }
-  this.stop = function(){
-    this.sound.pause();
-  }
+function playerSound(src){
+  player.src = src;
+  player.play();
 }
