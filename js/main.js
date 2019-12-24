@@ -41,24 +41,28 @@ Play.addEventListener("click", function(){
 Red.addEventListener("click", function(){
   if(canClick){
     lastClick = Red;
+    canClick = false;
     userClick();
   }
 });
 Green.addEventListener("click", function(){
   if(canClick){
     lastClick = Green;
+    canClick = false;
     userClick();
   }
 });
 Yellow.addEventListener("click", function(){
   if(canClick){
     lastClick = Yellow;
+    canClick = false;
     userClick();
   }
 });
 Blue.addEventListener("click", function(){
   if(canClick){
     lastClick = Blue;
+    canClick = false;
     userClick();
   }
 });
@@ -76,7 +80,7 @@ Start.addEventListener("click", function(){
         clearInterval(intr);
       }
     }
-  }, 500);
+  }, 400);
 });
 Button.addEventListener("click", function(){
   Body.removeChild(Modal);
@@ -85,12 +89,13 @@ Button.addEventListener("click", function(){
 function init(){
   Modal.id = "modal";
   cpuClicks = [];
-  numOfClicks = 5;
+  numOfClicks = 2;
   countClicks = 0;
   score = 0;
   canClick = false;
   lightOn = false;
   Start.disabled = false;
+  Score.innerText = 0;
 }
 init();
 
@@ -129,17 +134,16 @@ function renderWin(){
 }
 function userClick(){
   let i = 0;
-  let intr = setInterval(function(){
+  setTimeout(function(){
     renderColor();
-    if(i == 2){
-      clearInterval(intr);
-    }
-    i++;
-  }, 500);
+  }, 400);
+  renderColor();
+  canClick = true;
   if(cpuClicks[countClicks] == lastClick){
     countClicks++;
   } else {
     renderLose();
+    return;
   }
   if(countClicks == cpuClicks.length){
     score++;
