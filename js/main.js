@@ -1,7 +1,8 @@
 /*----- constants -----*/
-
+const WIN = 3;
 /*----- app's state (variables) -----*/
-let cpuClicks, userClicks, lastClick, numOfClicks, countClicks, canClick, lightOn;
+let cpuClicks, lastClick, numOfClicks, 
+countClicks, canClick, lightOn, score;
 /*----- cached element references -----*/
 const Body = document.querySelector("body");
 const Red = document.getElementById("red");
@@ -9,6 +10,8 @@ const Green = document.getElementById("green");
 const Yellow = document.getElementById("yellow");
 const Blue = document.getElementById("blue");
 const Start = document.querySelector("button");
+const Score = document.querySelector("span");
+const Play = document.getElementById("play");
 const Modal = document.createElement("div");
 const Button = document.createElement("button");
 const P = document.createElement("p");
@@ -32,6 +35,9 @@ const COLORSWITCH = {
   },
 };
 /*----- event listeners -----*/
+Play.addEventListener("click", function(){
+  Body.removeChild(modal);
+});
 Red.addEventListener("click", function(){
   if(canClick){
     lastClick = Red;
@@ -57,6 +63,7 @@ Blue.addEventListener("click", function(){
   }
 });
 Start.addEventListener("click", function(){
+  Start.disabled = true;
   let intr = setInterval(function(){
     if(!lightOn) {
       lastClick = ALLCOLORS[Math.floor(Math.random()*4)];
@@ -72,17 +79,18 @@ Start.addEventListener("click", function(){
   }, 500);
 });
 Button.addEventListener("click", function(){
-  init();
   Body.removeChild(Modal);
 });
 /*----- functions -----*/
 function init(){
-  userClicks = [];
+  Modal.id = "modal";
   cpuClicks = [];
   numOfClicks = 5;
   countClicks = 0;
+  score = 0;
   canClick = false;
   lightOn = false;
+  Start.disabled = false;
 }
 init();
 
@@ -95,19 +103,35 @@ function renderColor(){
     lightOn = true;
   }
 }
+function renderScore(){
+  Body.appendChild(Modal);
+  P.innerHTML = `GOOD JOB<br>You scored ${score} out of 3`;
+  Button.innerText = "Continue";
+  Modal.appendChild(P);
+  Modal.appendChild(Button);
+  Score.innerText = score;
+}
 function renderLose(){
-  Modal.id = "modal";
   Body.appendChild(Modal);
   P.textContent = "YOU LOSE";
   Button.innerText = "Try Again";
   Modal.appendChild(P);
   Modal.appendChild(Button);
+  init();
+}
+function renderWin(){
+  Body.appendChild(Modal);
+  P.textContent = "YOU WIN";
+  Button.innerText = "Play Again";
+  Modal.appendChild(P);
+  Modal.appendChild(Button);
+  init();
 }
 function userClick(){
   let i = 0;
   let intr = setInterval(function(){
     renderColor();
-    if(i == 1){
+    if(i == 2){
       clearInterval(intr);
     }
     i++;
@@ -118,8 +142,16 @@ function userClick(){
     renderLose();
   }
   if(countClicks == cpuClicks.length){
-    canClick = false;
-    countClicks = 0;
-    cpuClicks = [];
+    score++;
+    if(score == WIN){
+      renderWin();
+    } else {
+      renderScore();
+      canClick = false;
+      countClicks = 0;
+      numOfClicks += 2;
+      cpuClicks = [];
+      Start.disabled = false;
+    }
   }
 }
