@@ -106,7 +106,7 @@ function renderColor(){
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].off;
     lightOn = false;
   } else {
-    playerSound("click.mp3");
+    playerSound("sound/click.mp3");
     lastClick.style.backgroundColor = COLORSWITCH[lastClick.id].on;
     lightOn = true;
   }

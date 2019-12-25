@@ -10,12 +10,12 @@ There are three rounds. In the first round, after clicking start, 2 lights will 
 
 ### Screenshots
 **Start of Game**
-<img src="https://imgur.com/2YOywEK"/>
+<img src="https://imgur.com/2YOywEK.png"/>
 **The Game**
-<img src="https://imgur.com/ZGTQVab"/>
+<img src="https://imgur.com/ZGTQVab.png"/>
 **Winning a Round**
-<img src="https://imgur.com/ZHfTsV3"/>
+<img src="https://imgur.com/ZHfTsV3.png"/>
 **Losing**
-<img src="https://imgur.com/ArHCRez"/>
+<img src="https://imgur.com/ArHCRez.png"/>
 **Winning**
-<img src="https://imgur.com/2YsiWi1"/>
+<img src="https://imgur.com/2YsiWi1.png"/>
