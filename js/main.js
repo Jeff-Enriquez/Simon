@@ -96,7 +96,8 @@ function init(){
   canClick = false;
   lightOn = false;
   Start.disabled = false;
-  Score.innerText = 0;
+  Score.innerText = 1;
+  setColors();
 }
 init();
 
@@ -110,13 +111,20 @@ function renderColor(){
     lightOn = true;
   }
 }
+function setColors(){
+  Red.style.backgroundColor = COLORSWITCH.red.off;
+  Blue.style.backgroundColor = COLORSWITCH.blue.off;
+  Green.style.backgroundColor = COLORSWITCH.green.off;
+  Yellow.style.backgroundColor = COLORSWITCH.yellow.off;
+}
 function renderScore(){
   Body.appendChild(Modal);
-  P.innerHTML = `GOOD JOB<br>You scored ${score} out of 3`;
+  P.innerHTML = `GOOD JOB<br>You completed Round ${score} out of 3`;
   Button.innerText = "Continue";
   Modal.appendChild(P);
   Modal.appendChild(Button);
   Score.innerText = score;
+  setColors();
 }
 function renderLose(){
   Body.appendChild(Modal);
