@@ -123,7 +123,7 @@ function renderScore(){
   Button.innerText = "Continue";
   Modal.appendChild(P);
   Modal.appendChild(Button);
-  Score.innerText = score;
+  Score.innerText = score + 1;
   setColors();
 }
 function renderLose(){
